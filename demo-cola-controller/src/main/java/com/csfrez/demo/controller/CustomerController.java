@@ -2,6 +2,7 @@ package com.csfrez.demo.controller;
 
 import com.alibaba.cola.dto.MultiResponse;
 import com.alibaba.cola.dto.Response;
+import com.alibaba.cola.dto.SingleResponse;
 import com.csfrez.demo.api.CustomerServiceI;
 import com.csfrez.demo.dto.CustomerAddCmd;
 import com.csfrez.demo.dto.CustomerListByNameQry;
@@ -25,5 +26,10 @@ public class CustomerController {
     @PostMapping(value = "/customer")
     public Response addCustomer(@RequestBody CustomerAddCmd customerAddCmd){
         return customerService.addCustomer(customerAddCmd);
+    }
+    
+    @GetMapping(value = "/customer/{customerId}")
+    public SingleResponse<Customer> getCustomer(@PathVariable String customerId){
+        return customerService.getCustomer(customerId);
     }
 }
