@@ -6,12 +6,14 @@ import org.springframework.stereotype.Service;
 import com.alibaba.cola.command.CommandBusI;
 import com.alibaba.cola.dto.MultiResponse;
 import com.alibaba.cola.dto.Response;
+import com.alibaba.cola.dto.SingleResponse;
 import com.alibaba.cola.event.EventBusI;
 import com.csfrez.demo.api.CustomerServiceI;
 import com.csfrez.demo.dto.CustomerAddCmd;
 import com.csfrez.demo.dto.CustomerListByNameQry;
 import com.csfrez.demo.dto.domainevent.CustomerCreatedEvent;
 import com.csfrez.demo.dto.domainmodel.Customer;
+import com.csfrez.demo.repository.CustomerRepository;
 
 
 @Service
@@ -22,6 +24,9 @@ public class CustomerServiceImpl implements CustomerServiceI {
     
     @Autowired
     private EventBusI eventBus;
+    
+    @Autowired
+	private CustomerRepository customerRepository;
 
     @Override
     public Response addCustomer(CustomerAddCmd customerAddCmd) {
@@ -38,7 +43,10 @@ public class CustomerServiceImpl implements CustomerServiceI {
 	public Response fire(CustomerCreatedEvent customerCreatedEvent) {
 		return eventBus.fire(customerCreatedEvent);
 	}
-	
-	
+
+	@Override
+	public SingleResponse<Customer> getCustomer(String customerId) {
+		return SingleResponse.of(customerRepository.getById(customerId));
+	}
 
 }
