@@ -20,8 +20,9 @@ public class CustomerCreatedHandler implements EventHandlerI<Response, CustomerC
 
     @Override
     public Response execute(CustomerCreatedEvent event) {
-        logger.debug("Sync new customer to Search");
-        logger.debug("Logging system operation for new customer");
+        logger.warn("Sync new customer to Search");
+        logger.warn("Logging system operation for new customer");
+        logger.warn("customerId="+ event.getCustomerId());
         return Response.buildSuccess();
     }
 }
