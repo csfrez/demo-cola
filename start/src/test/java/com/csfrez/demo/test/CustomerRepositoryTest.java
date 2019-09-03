@@ -21,7 +21,7 @@ public class CustomerRepositoryTest {
 	@Test
     public void getByIdTest() {
 		try {
-			Customer customer = customerRepository.getByById("1000");
+			Customer customer = customerRepository.getById("1000");
 			System.out.println(JSON.toJSONString(customer));
 		} catch (Exception e) {
 			e.printStackTrace();
